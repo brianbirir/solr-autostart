@@ -1,0 +1,64 @@
+#!/bin/sh
+
+start(){
+        echo -n "Starting solr..."
+
+        # Start daemon
+        daemon --chdir='/opt/solr' --command "java -jar start.jar" --respawn --output=/var/log/solr/solr.log --name=solr --verbose
+
+        RETVAL=$?
+        if [ $RETVAL = 0 ]
+        then
+                echo "done."
+        else
+                echo "failed. See error code for information."
+        fi
+        return $RETVAL
+}
+
+stop() {
+        # Stop daemon
+        echo -n "Stopping solr...."
+
+        daemon --stop --name=solr --verbose
+
+        RETVAL=$?
+
+        if [ $RETVAL = 0 ]
+        then
+                echo "done."
+        else
+                echo "failed. See error code for information."
+        fi
+        return $RETVAL
+}
+
+restart() {
+        daemon --restart --name=solr --verbose
+}
+
+status() {
+        # Report on the status of the daemon
+        daemon --running --verbose --name=solr
+}
+
+case "$1" in
+        start)
+                start
+        ;;
+        status)
+                status
+        ;;
+        stop)
+                stop
+        ;;
+        restart)
+                restart
+        ;;
+        *)
+                echo $"Usage: solr {start|status|stop|restart}"
+                exit 3
+        ;;
+esac
+
+exit $RETVAL
