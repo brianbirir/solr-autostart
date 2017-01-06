@@ -1,5 +1,5 @@
 # solr-autostart
-Script for starting Apache Solr when Ubuntu 16.04 server boots. Ensure Sorl is already downloaded to a suitable folder. In this context its `/opt//solr`
+Script for starting [Apache Solr](http://lucene.apache.org/solr/) when Ubuntu 16.04 server boots. Ensure Sorl is already downloaded to a suitable folder. In this context its `/opt//solr`
 
 ## Steps
 * Download script via git clone and move it to `/etc/init.d`
